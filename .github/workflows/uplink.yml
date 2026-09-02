@@ -1,0 +1,33 @@
+# uplink — rebuilds the profile banner every night so the HUD line
+# "uplink ... DAY N · date" stays live. Own repo, own content: allowed.
+name: uplink
+
+on:
+  schedule:
+    - cron: "17 5 * * *"   # 05:17 UTC, daily
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  hud:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: rebuild banner.svg and banner-light.svg
+        run: python3 tools/build_banner.py
+      - name: commit if changed
+        run: |
+          set -euo pipefail
+          git config user.name "uplink"
+          git config user.email "uplink@users.noreply.github.com"
+          if git diff --quiet -- banner.svg banner-light.svg; then
+            echo "no change"; exit 0
+          fi
+          git add banner.svg banner-light.svg
+          git commit -m "uplink: $(date -u +%F)"
+          git push
