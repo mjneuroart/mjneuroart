@@ -1,6 +1,8 @@
-# pages — publishes docs/ (the "terminal" page) to GitHub Pages.
-# First run enables Pages on the repo (source: GitHub Actions), every later
-# push to main that touches docs/ redeploys. Own repo, own content: allowed.
+# pages — keeps the gh-pages branch equal to docs/ (the "terminal" page).
+# GitHub enabled Pages on its own the first time gh-pages was pushed (it does
+# that for a project site); the workflow token cannot enable Pages itself
+# (no administration right), so the branch is the source, not docs/ on main.
+# Own repo, own content: allowed.
 name: pages
 
 on:
@@ -12,30 +14,23 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
   group: pages
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  sync:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - name: enable Pages if needed, then configure
-        uses: actions/configure-pages@v5
+      - name: push docs/ to gh-pages
+        uses: crazy-max/ghaction-github-pages@v4
         with:
-          enablement: true
-      - name: package docs/
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: docs
-      - name: deploy
-        id: deployment
-        uses: actions/deploy-pages@v4
+          target_branch: gh-pages
+          build_dir: docs
+          jekyll: false
+          commit_message: "pages: sync docs/ from main"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
