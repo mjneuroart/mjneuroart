@@ -128,7 +128,7 @@
   <g font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" letter-spacing="1.5" fill="#c9c4e6">
     <text x="58" y="304">&gt; neural.link ........... OK<animate attributeName="opacity" values="0;0;1;1;1;1;0" keyTimes="0;0.05;0.1;0.9;0.95;0.98;1" dur="9s" repeatCount="indefinite"/></text>
     <text x="58" y="324">&gt; agents.spawn .......... READY<animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.2;0.25;0.95;1" dur="9s" repeatCount="indefinite"/></text>
-    <text x="58" y="344">&gt; uplink ................ DAY 1020 · 2026-09-02<animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.35;0.4;0.95;1" dur="9s" repeatCount="indefinite"/></text>
+    <text x="58" y="344">&gt; uplink ................ DAY 1021 · 2026-09-03<animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.35;0.4;0.95;1" dur="9s" repeatCount="indefinite"/></text>
     <text x="58" y="364">&gt; status ................ ONLINE · PARIS<animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.5;0.55;0.95;1" dur="9s" repeatCount="indefinite"/></text>
     <rect x="58" y="370" width="8" height="12" fill="#e8a94e"><animate attributeName="opacity" values="1;0;1" dur="0.9s" repeatCount="indefinite"/></rect>
   </g>
